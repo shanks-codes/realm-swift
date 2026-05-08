@@ -162,6 +162,10 @@ REALM_NOINLINE void RLMRealmTranslateException(NSError **error) {
     catch (std::exception const& ex) {
         RLMSetErrorOrThrow(makeError(ex), error);
     }
+    catch(NSException *ex) {
+        NSError* inError = [[NSError alloc] initWithDomain:RLMErrorDomain code:RLMErrorFail userInfo:@{NSLocalizedDescriptionKey: ex.reason ? ex.reason : @"" }];
+        RLMSetErrorOrThrow(inError, error);
+    }
 }
 
 namespace {
