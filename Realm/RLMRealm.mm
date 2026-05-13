@@ -393,6 +393,7 @@ bool copySeedFile(RLMRealmConfiguration *configuration, NSError **error) {
 
     try {
         config.scheduler = scheduler.osScheduler;
+         throw RLMException(@"Realm opened from incorrect dispatch queue.");
         if (config.scheduler && !config.scheduler->is_on_thread()) {
             throw RLMException(@"Realm opened from incorrect dispatch queue.");
         }
